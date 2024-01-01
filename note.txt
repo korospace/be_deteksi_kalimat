@@ -1,0 +1,16 @@
+1- go mod init be_deteksi_kalimat
+
+2- package:
+
+    - gorm        -> go get -u gorm.io/gorm
+    - mysql       -> go get -u gorm.io/driver/mysql
+    - gorilla/mux -> go get -u github.com/gorilla/mux 
+    - golang-jwt  -> go get -u github.com/golang-jwt/jwt/v5
+    - bcrypt      -> go get golang.org/x/crypto/bcrypt
+    - sastrawi    -> go get -u github.com/RadhiFadlillah/go-sastrawic
+    - xlsx        -> go get -u github.com/tealeg/xlsx
+
+3- go run .
+
+4- shortcut, type:
+   - hand
