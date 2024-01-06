@@ -17,7 +17,21 @@ func ListingUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	helpers.Response(w, 200, "User List", users)
+	userListRes := make([]models.Me, len(users))
+
+	for i, r := range users {
+		userListRes[i].ID = r.ID
+		userListRes[i].Name = r.Name
+		userListRes[i].Email = r.Email
+		userListRes[i].UserAccessID = r.UserAccessID
+
+		var UserAccess models.UserAccess
+		if err := database.DB.Where("id = ?", r.UserAccessID).First(&UserAccess).Error; err == nil {
+			userListRes[i].UserAccessName = UserAccess.Name
+		}
+	}
+
+	helpers.Response(w, 200, "User List", userListRes)
 }
 
 func Me(w http.ResponseWriter, r *http.Request) {
@@ -35,6 +49,11 @@ func Me(w http.ResponseWriter, r *http.Request) {
 		Name:         user.Name,
 		Email:        user.Email,
 		UserAccessID: user.UserAccessID,
+	}
+
+	var UserAccess models.UserAccess
+	if err := database.DB.Where("id = ?", me.UserAccessID).First(&UserAccess).Error; err == nil {
+		me.UserAccessName = UserAccess.Name
 	}
 
 	helpers.Response(w, 200, "Me", me)
