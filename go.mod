@@ -9,6 +9,7 @@ require (
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/rs/cors v1.10.1 // indirect
 	github.com/tealeg/xlsx v1.0.5 // indirect
 	golang.org/x/crypto v0.17.0 // indirect
 	gorm.io/driver/mysql v1.5.2 // indirect

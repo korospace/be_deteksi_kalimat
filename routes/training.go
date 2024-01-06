@@ -11,6 +11,6 @@ func TrainingRoutes(r *mux.Router) {
 	router := r.PathPrefix("/training").Subrouter()
 
 	router.Use(middleware.TokenMiddleware)
-	router.HandleFunc("/single", controllers.SingleTraining).Methods("POST")
-	router.HandleFunc("/bulk", controllers.BulkTraining).Methods("POST")
+	router.HandleFunc("/single", controllers.SingleTraining).Methods("POST", "OPTIONS")
+	router.HandleFunc("/bulk", controllers.BulkTraining).Methods("POST", "OPTIONS")
 }

@@ -44,3 +44,23 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 	helpers.Response(w, 200, "Login successfully", LoginRes)
 }
+
+func Me(w http.ResponseWriter, r *http.Request) {
+	// get token info
+	tokeninfo := r.Context().Value("tokeninfo").(*helpers.TokenInfo)
+
+	var user models.User
+	if err := database.DB.First(&user, "id = ?", tokeninfo.ID).Error; err != nil {
+		helpers.Response(w, 500, "failed", err)
+		return
+	}
+
+	me := models.Me{
+		ID:           user.ID,
+		Name:         user.Name,
+		Email:        user.Email,
+		UserAccessID: user.UserAccessID,
+	}
+
+	helpers.Response(w, 200, "Me", me)
+}
