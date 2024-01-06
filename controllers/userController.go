@@ -154,7 +154,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		me.UserAccessName = UserAccess.Name
 	}
 
-	helpers.Response(w, 200, "User Updated", user)
+	helpers.Response(w, 200, "User Updated", me)
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
