@@ -127,7 +127,19 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	helpers.Response(w, 200, "User Updated", user)
+	me := models.Me{
+		ID:           user.ID,
+		Name:         user.Name,
+		Email:        user.Email,
+		UserAccessID: user.UserAccessID,
+	}
+
+	var UserAccess models.UserAccess
+	if err := database.DB.Where("id = ?", me.UserAccessID).First(&UserAccess).Error; err == nil {
+		me.UserAccessName = UserAccess.Name
+	}
+
+	helpers.Response(w, 200, "User Updated", me)
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
