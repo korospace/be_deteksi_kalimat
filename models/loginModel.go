@@ -6,5 +6,5 @@ type LoginReq struct {
 }
 
 type LoginRes struct {
-	Token string
+	Token string `json:"token"`
 }

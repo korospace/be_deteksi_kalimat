@@ -14,12 +14,12 @@ type UserAccess struct {
 }
 
 type UserAccessCreateReq struct {
-	Name        string
-	Description string
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }
 
 type UserAccessUpdateReq struct {
-	ID          int
-	Name        string
-	Description string
+	ID          int    `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
 }

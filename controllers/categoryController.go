@@ -12,7 +12,7 @@ import (
 func ListingCategory(w http.ResponseWriter, r *http.Request) {
 	var categories []models.Category
 
-	if err := database.DB.Where("na = ?", "N").Find(&categories).Error; err != nil {
+	if err := database.DB.Where("na = ?", "N").Order("id desc").Find(&categories).Error; err != nil {
 		helpers.Response(w, http.StatusInternalServerError, "Failed to fetch categories", nil)
 		return
 	}

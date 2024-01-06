@@ -13,8 +13,11 @@ func CategoryRoutes(r *mux.Router) {
 	router.Use(middleware.TokenMiddleware)
 	router.HandleFunc("/list", controllers.ListingCategory).Methods("GET", "OPTIONS")
 
-	router.Use(middleware.SuperadminMiddleware)
-	router.HandleFunc("/create", controllers.CreateCategory).Methods("POST", "OPTIONS")
-	router.HandleFunc("/update", controllers.UpdateCategory).Methods("PUT")
-	router.HandleFunc("/delete", controllers.DeleteCategory).Methods("DELETE")
+	routerSuperadmin := r.PathPrefix("/category").Subrouter()
+
+	routerSuperadmin.Use(middleware.TokenMiddleware)
+	routerSuperadmin.Use(middleware.SuperadminMiddleware)
+	routerSuperadmin.HandleFunc("/create", controllers.CreateCategory).Methods("POST", "OPTIONS")
+	routerSuperadmin.HandleFunc("/update", controllers.UpdateCategory).Methods("PUT", "OPTIONS")
+	routerSuperadmin.HandleFunc("/delete", controllers.DeleteCategory).Methods("DELETE", "OPTIONS")
 }

@@ -23,6 +23,7 @@ func main() {
 	routes.AuthRoutes(router)
 	routes.CategoryRoutes(router)
 	routes.UserAccessRoutes(router)
+	routes.UserRoutes(router)
 	routes.DatasetRoutes(router)
 	routes.TrainingRoutes(router)
 

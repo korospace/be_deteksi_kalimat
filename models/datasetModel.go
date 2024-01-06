@@ -20,41 +20,41 @@ type Dataset struct {
 }
 
 type PreProcessedText struct {
-	Clean        string
-	Stopword     string
-	Stemming     string
-	Tokenization string
+	Clean        string `json:"clean"`
+	Stopword     string `json:"stopword"`
+	Stemming     string `json:"stemming"`
+	Tokenization string `json:"tokenization"`
 }
 
 type DatasetListRes struct {
-	ID           int
-	Raw          string
-	Clean        string
-	Stopword     string
-	Stemming     string
-	Tokenization string
-	CategoryID   int
-	CategoryName string
-	Verify       string
-	UseridVerify int
+	ID           int    `json:"id"`
+	Raw          string `json:"raw"`
+	Clean        string `json:"clean"`
+	Stopword     string `json:"stopword"`
+	Stemming     string `json:"stemming"`
+	Tokenization string `json:"tokenization"`
+	CategoryID   int    `json:"category_id"`
+	CategoryName string `json:"category_name"`
+	Verify       string `json:"verify"`
+	UseridVerify int    `json:"userid_verify"`
 }
 
 type DatasetCreateReq struct {
-	RawText  string
-	Category string
+	RawText  string `json:"raw_text"`
+	Category string `json:"category"`
 }
 
 type DatasetUpdateReq struct {
-	ID           int
-	Raw          string
-	Clean        string
-	Stopword     string
-	Stemming     string
-	Tokenization string
-	CategoryID   int
+	ID           int    `json:"id"`
+	Raw          string `json:"raw"`
+	Clean        string `json:"clean"`
+	Stopword     string `json:"stopword"`
+	Stemming     string `json:"stemming"`
+	Tokenization string `json:"tokenization"`
+	CategoryID   int    `json:"category_id"`
 }
 
 type VerifyDatasetReq struct {
-	ID     int
-	Verify string
+	ID     int    `json:"id"`
+	Verify string `json:"verify"`
 }

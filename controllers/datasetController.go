@@ -64,7 +64,7 @@ func CreateDataset(w http.ResponseWriter, r *http.Request) {
 	// Pre Processing text
 	preProcessedText, err := helpers.PreProcess(request.RawText)
 	if err != nil {
-		http.Error(w, "Gagal memproses teks", http.StatusInternalServerError)
+		helpers.Response(w, 500, "Gagal pre process teks", nil)
 		return
 	}
 

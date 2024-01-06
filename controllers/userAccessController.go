@@ -12,12 +12,12 @@ import (
 func ListingAccess(w http.ResponseWriter, r *http.Request) {
 	var user_accesses []models.UserAccess
 
-	if err := database.DB.Where("na = ?", "N").Find(&user_accesses).Error; err != nil {
+	if err := database.DB.Where("na = ?", "N").Order("id desc").Find(&user_accesses).Error; err != nil {
 		helpers.Response(w, http.StatusInternalServerError, "Failed to fetch user accesses", nil)
 		return
 	}
 
-	helpers.Response(w, 200, "Category List", user_accesses)
+	helpers.Response(w, 200, "User List", user_accesses)
 }
 
 func CreateAccess(w http.ResponseWriter, r *http.Request) {
