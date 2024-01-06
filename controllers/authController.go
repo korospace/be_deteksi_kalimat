@@ -21,7 +21,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	// cek email
-	if err := database.DB.First(&user, "email = ?", LoginReq.Email).Error; err != nil {
+	if err := database.DB.First(&user, "email = ? AND NA = 'N'", LoginReq.Email).Error; err != nil {
 		helpers.Response(w, 401, "Wrong email", nil)
 		return
 	}

@@ -128,10 +128,13 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	currentTime := time.Now()
 	user.Name = request.Name
 	user.Email = request.Email
-	user.Password = helpers.HashPassword(request.Password)
 	user.UserAccessID = request.UserAccessID
 	user.UseridUpdate = userinfo.ID
 	user.DateUpdate = &currentTime
+
+	if request.Password != "" {
+		user.Password = helpers.HashPassword(request.Password)
+	}
 
 	// update row
 	if err := database.DB.Save(&user).Error; err != nil {
@@ -151,7 +154,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		me.UserAccessName = UserAccess.Name
 	}
 
-	helpers.Response(w, 200, "User Updated", me)
+	helpers.Response(w, 200, "User Updated", user)
 }
 
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
