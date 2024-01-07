@@ -30,11 +30,11 @@ func ListingDataset(w http.ResponseWriter, r *http.Request) {
 		datasetListRes[i].CategoryID = r.CategoryID
 		datasetListRes[i].Verify = r.Verify
 		datasetListRes[i].UseridVerify = r.UseridVerify
-		datasetListRes[i].CategoryName = "-"
+		datasetListRes[i].Category = "-"
 
 		var category models.Category
 		if err := database.DB.Where("id = ?", r.CategoryID).First(&category).Error; err == nil {
-			datasetListRes[i].CategoryName = category.Name
+			datasetListRes[i].Category = category.Name
 		}
 	}
 
@@ -62,7 +62,7 @@ func CreateDataset(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Pre Processing text
-	preProcessedText, err := helpers.PreProcess(request.RawText)
+	preProcessedText, err := helpers.PreProcess(request.Raw)
 	if err != nil {
 		helpers.Response(w, 500, "Gagal pre process teks", nil)
 		return
@@ -72,7 +72,7 @@ func CreateDataset(w http.ResponseWriter, r *http.Request) {
 	currentTime := time.Now()
 	dataset := models.Dataset{
 		CategoryID:   categoryID,
-		Raw:          request.RawText,
+		Raw:          request.Raw,
 		Clean:        preProcessedText.Clean,
 		Stopword:     preProcessedText.Stopword,
 		Stemming:     preProcessedText.Stemming,
@@ -220,7 +220,6 @@ func UpdateDataset(w http.ResponseWriter, r *http.Request) {
 
 	// make update
 	currentTime := time.Now()
-	dataset.CategoryID = request.CategoryID
 	dataset.Raw = request.Raw
 	dataset.Clean = request.Clean
 	dataset.Stopword = request.Stopword
@@ -229,13 +228,30 @@ func UpdateDataset(w http.ResponseWriter, r *http.Request) {
 	dataset.UseridUpdate = userinfo.ID
 	dataset.DateUpdate = &currentTime
 
+	// labeling
+	var category models.Category
+	if err := database.DB.Where("id = ? OR Name = ?", request.Category, request.Category).First(&category).Error; err == nil {
+		dataset.CategoryID = category.ID
+	}
+
 	// update row
 	if err := database.DB.Save(&dataset).Error; err != nil {
 		helpers.Response(w, 500, err.Error(), nil)
 		return
 	}
 
-	helpers.Response(w, 200, "Dataset Updated", dataset)
+	// make response
+	response := models.DatasetUpdateReq{
+		ID:           request.ID,
+		Raw:          request.Raw,
+		Clean:        request.Clean,
+		Stemming:     request.Stemming,
+		Stopword:     request.Stopword,
+		Tokenization: request.Tokenization,
+		Category:     request.Category,
+	}
+
+	helpers.Response(w, 200, "Dataset Updated", response)
 }
 
 func DeleteDataset(w http.ResponseWriter, r *http.Request) {

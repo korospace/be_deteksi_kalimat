@@ -34,13 +34,13 @@ type DatasetListRes struct {
 	Stemming     string `json:"stemming"`
 	Tokenization string `json:"tokenization"`
 	CategoryID   int    `json:"category_id"`
-	CategoryName string `json:"category_name"`
+	Category     string `json:"category"`
 	Verify       string `json:"verify"`
 	UseridVerify int    `json:"userid_verify"`
 }
 
 type DatasetCreateReq struct {
-	RawText  string `json:"raw_text"`
+	Raw      string `json:"raw"`
 	Category string `json:"category"`
 }
 
@@ -51,7 +51,7 @@ type DatasetUpdateReq struct {
 	Stopword     string `json:"stopword"`
 	Stemming     string `json:"stemming"`
 	Tokenization string `json:"tokenization"`
-	CategoryID   int    `json:"category_id"`
+	Category     string `json:"category"`
 }
 
 type VerifyDatasetReq struct {

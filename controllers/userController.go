@@ -89,6 +89,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// make response
 	me := models.Me{
 		ID:           user.ID,
 		Name:         user.Name,
@@ -142,6 +143,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// make response
 	me := models.Me{
 		ID:           user.ID,
 		Name:         user.Name,
